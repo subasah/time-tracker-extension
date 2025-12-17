@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Manager - Skill Time Tracker</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container" style="width: 500px">
+      <header>
+        <button id="backBtn" class="icon-btn" title="Back">⬅️</button>
+        <h1>💾 Data Manager</h1>
+      </header>
+
+      <div class="section">
+        <h2>Export Data</h2>
+        <p style="font-size: 12px; color: #6b7280; margin-bottom: 15px">
+          Download all your tasks and session data as a JSON file for backup or
+          analysis.
+        </p>
+        <button id="exportBtn" class="btn btn-primary">
+          Export Data (JSON)
+        </button>
+        <button id="exportCsvBtn" class="btn btn-primary">
+          Export Sessions (CSV)
+        </button>
+      </div>
+
+      <div class="section">
+        <h2>Import Data</h2>
+        <p style="font-size: 12px; color: #6b7280; margin-bottom: 15px">
+          Restore your data from a previously exported JSON file. This will
+          replace your current data.
+        </p>
+        <input
+          type="file"
+          id="importFile"
+          accept=".json"
+          style="margin-bottom: 10px"
+        />
+        <button id="importBtn" class="btn btn-warning">Import Data</button>
+      </div>
+
+      <div class="section">
+        <h2>Clear All Data</h2>
+        <p style="font-size: 12px; color: #ef4444; margin-bottom: 15px">
+          ⚠️ Warning: This will permanently delete all your tasks and session
+          history. This action cannot be undone!
+        </p>
+        <button id="clearBtn" class="btn btn-danger">Clear All Data</button>
+      </div>
+
+      <div class="section">
+        <h2>Data Summary</h2>
+        <div id="dataSummary" style="font-size: 14px; color: #374151">
+          <p>Loading...</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="data-manager.js"></script>
+  </body>
+</html>

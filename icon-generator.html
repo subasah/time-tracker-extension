@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Icon Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+        background: #f0f0f0;
+      }
+      .icon-preview {
+        margin: 20px;
+        text-align: center;
+      }
+      canvas {
+        border: 2px solid #333;
+        margin: 10px;
+        background: white;
+      }
+      button {
+        padding: 12px 24px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+      }
+      button:hover {
+        background: #5568d3;
+      }
+      .instructions {
+        max-width: 600px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎨 Extension Icon Generator</h1>
+
+    <div class="instructions">
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Click the "Generate Icons" button below</li>
+        <li>Right-click each canvas and select "Save image as..."</li>
+        <li>
+          Save them with the exact names: icon16.png, icon48.png, icon128.png
+        </li>
+        <li>Place them in the icons/ folder of your extension</li>
+      </ol>
+    </div>
+
+    <button onclick="generateIcons()">Generate Icons</button>
+
+    <div id="iconContainer"></div>
+
+    <script>
+      function generateIcons() {
+        const sizes = [16, 48, 128];
+        const container = document.getElementById("iconContainer");
+        container.innerHTML = "";
+
+        sizes.forEach((size) => {
+          const canvas = document.createElement("canvas");
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext("2d");
+
+          // Background gradient
+          const gradient = ctx.createLinearGradient(0, 0, size, size);
+          gradient.addColorStop(0, "#667eea");
+          gradient.addColorStop(1, "#764ba2");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, size, size);
+
+          // Draw clock/timer icon
+          const centerX = size / 2;
+          const centerY = size / 2;
+          const radius = size * 0.35;
+
+          // Clock circle
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+          ctx.fillStyle = "white";
+          ctx.fill();
+          ctx.lineWidth = size * 0.05;
+          ctx.strokeStyle = "#333";
+          ctx.stroke();
+
+          // Clock hands
+          ctx.lineCap = "round";
+
+          // Hour hand (pointing to 10)
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          const hourAngle = (10 / 12) * Math.PI * 2 - Math.PI / 2;
+          ctx.lineTo(
+            centerX + Math.cos(hourAngle) * radius * 0.5,
+            centerY + Math.sin(hourAngle) * radius * 0.5
+          );
+          ctx.lineWidth = size * 0.08;
+          ctx.strokeStyle = "#333";
+          ctx.stroke();
+
+          // Minute hand (pointing to 2)
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          const minuteAngle = (10 / 60) * Math.PI * 2 - Math.PI / 2;
+          ctx.lineTo(
+            centerX + Math.cos(minuteAngle) * radius * 0.7,
+            centerY + Math.sin(minuteAngle) * radius * 0.7
+          );
+          ctx.lineWidth = size * 0.06;
+          ctx.strokeStyle = "#667eea";
+          ctx.stroke();
+
+          // Center dot
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, size * 0.05, 0, Math.PI * 2);
+          ctx.fillStyle = "#333";
+          ctx.fill();
+
+          const preview = document.createElement("div");
+          preview.className = "icon-preview";
+          preview.innerHTML = `<p>icon${size}.png (${size}x${size})</p>`;
+          preview.appendChild(canvas);
+          container.appendChild(preview);
+        });
+      }
+    </script>
+  </body>
+</html>

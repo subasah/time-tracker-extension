@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Web Store Image Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; margin-bottom: 30px; }
+        .canvas-section {
+            margin-bottom: 40px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        .canvas-section h2 {
+            margin-top: 0;
+            color: #1a73e8;
+        }
+        canvas {
+            border: 2px solid #ddd;
+            display: block;
+            margin: 15px 0;
+            background: white;
+        }
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #1557b0;
+        }
+        .info {
+            background: #e8f0fe;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ Skill Time Tracker - Chrome Web Store Images</h1>
+        <p>Generate all required promotional images for Chrome Web Store submission</p>
+
+        <!-- Small Tile (Required) -->
+        <div class="canvas-section">
+            <h2>Small Tile - 440x280 (Required)</h2>
+            <div class="info">This tile appears in the Chrome Web Store search results</div>
+            <canvas id="smallTile" width="440" height="280"></canvas>
+            <button onclick="downloadCanvas('smallTile', 'small-tile-440x280.png')">Download Small Tile</button>
+            <div class="success" id="smallTile-success">✓ Downloaded!</div>
+        </div>
+
+        <!-- Large Tile (Optional) -->
+        <div class="canvas-section">
+            <h2>Large Tile - 920x680 (Optional)</h2>
+            <div class="info">Featured tile for promotional purposes</div>
+            <canvas id="largeTile" width="920" height="680"></canvas>
+            <button onclick="downloadCanvas('largeTile', 'large-tile-920x680.png')">Download Large Tile</button>
+            <div class="success" id="largeTile-success">✓ Downloaded!</div>
+        </div>
+
+        <!-- Marquee (Optional) -->
+        <div class="canvas-section">
+            <h2>Marquee - 1400x560 (Optional)</h2>
+            <div class="info">Banner image for featured placement</div>
+            <canvas id="marquee" width="1400" height="560"></canvas>
+            <button onclick="downloadCanvas('marquee', 'marquee-1400x560.png')">Download Marquee</button>
+            <div class="success" id="marquee-success">✓ Downloaded!</div>
+        </div>
+
+        <!-- Screenshot 1 -->
+        <div class="canvas-section">
+            <h2>Screenshot 1 - 1280x800 (Required)</h2>
+            <div class="info">Main interface screenshot</div>
+            <canvas id="screenshot1" width="1280" height="800"></canvas>
+            <button onclick="downloadCanvas('screenshot1', 'screenshot-1-1280x800.png')">Download Screenshot 1</button>
+            <div class="success" id="screenshot1-success">✓ Downloaded!</div>
+        </div>
+
+        <!-- Screenshot 2 -->
+        <div class="canvas-section">
+            <h2>Screenshot 2 - 1280x800 (Optional)</h2>
+            <div class="info">Timer in action</div>
+            <canvas id="screenshot2" width="1280" height="800"></canvas>
+            <button onclick="downloadCanvas('screenshot2', 'screenshot-2-1280x800.png')">Download Screenshot 2</button>
+            <div class="success" id="screenshot2-success">✓ Downloaded!</div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 4px;">
+            <strong>📝 Next Steps:</strong>
+            <ol>
+                <li>Download all the images using the buttons above</li>
+                <li>For better quality, replace these with custom designs or actual screenshots</li>
+                <li>Upload to Chrome Web Store Developer Dashboard</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Color scheme
+        const colors = {
+            primary: '#1a73e8',
+            secondary: '#34a853',
+            accent: '#fbbc04',
+            dark: '#202124',
+            light: '#f8f9fa',
+            white: '#ffffff'
+        };
+
+        // Draw Small Tile (440x280)
+        function drawSmallTile() {
+            const canvas = document.getElementById('smallTile');
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, 440, 280);
+            gradient.addColorStop(0, colors.primary);
+            gradient.addColorStop(1, colors.secondary);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 440, 280);
+            
+            // Icon circle
+            ctx.fillStyle = colors.white;
+            ctx.beginPath();
+            ctx.arc(220, 100, 40, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Timer icon
+            ctx.fillStyle = colors.primary;
+            ctx.font = 'bold 50px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('⏱️', 220, 115);
+            
+            // Title
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 32px Arial';
+            ctx.fillText('Skill Time Tracker', 220, 180);
+            
+            // Subtitle
+            ctx.font = '16px Arial';
+            ctx.fillText('Master your skills with focused practice', 220, 210);
+            
+            // Features
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('Pomodoro • 52-17 • Custom Timers', 220, 245);
+        }
+
+        // Draw Large Tile (920x680)
+        function drawLargeTile() {
+            const canvas = document.getElementById('largeTile');
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, 920, 680);
+            gradient.addColorStop(0, colors.primary);
+            gradient.addColorStop(1, colors.secondary);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 920, 680);
+            
+            // Large icon circle
+            ctx.fillStyle = colors.white;
+            ctx.beginPath();
+            ctx.arc(460, 220, 80, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Timer icon
+            ctx.fillStyle = colors.primary;
+            ctx.font = 'bold 100px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('⏱️', 460, 245);
+            
+            // Title
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 56px Arial';
+            ctx.fillText('Skill Time Tracker', 460, 360);
+            
+            // Subtitle
+            ctx.font = '24px Arial';
+            ctx.fillText('Track, Focus, and Master Your Skills', 460, 400);
+            
+            // Features boxes
+            const features = [
+                { icon: '🍅', text: 'Pomodoro' },
+                { icon: '⏰', text: '52-17' },
+                { icon: '⚡', text: 'Custom' },
+                { icon: '📊', text: 'Stats' }
+            ];
+            
+            const startX = 190;
+            features.forEach((feature, i) => {
+                const x = startX + (i * 140);
+                const y = 480;
+                
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.fillRect(x, y, 120, 100);
+                
+                ctx.font = '40px Arial';
+                ctx.fillText(feature.icon, x + 60, y + 50);
+                
+                ctx.fillStyle = colors.white;
+                ctx.font = 'bold 16px Arial';
+                ctx.fillText(feature.text, x + 60, y + 85);
+            });
+        }
+
+        // Draw Marquee (1400x560)
+        function drawMarquee() {
+            const canvas = document.getElementById('marquee');
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, 1400, 560);
+            gradient.addColorStop(0, colors.primary);
+            gradient.addColorStop(0.5, colors.secondary);
+            gradient.addColorStop(1, colors.primary);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1400, 560);
+            
+            // Left side - Icon and title
+            ctx.fillStyle = colors.white;
+            ctx.beginPath();
+            ctx.arc(250, 280, 100, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = colors.primary;
+            ctx.font = 'bold 120px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('⏱️', 250, 305);
+            
+            // Title
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 72px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('Skill Time Tracker', 420, 250);
+            
+            // Subtitle
+            ctx.font = '32px Arial';
+            ctx.fillText('Master any skill through focused practice', 420, 300);
+            
+            // Feature list
+            ctx.font = 'bold 24px Arial';
+            const features = [
+                '✓ Multiple timer techniques (Pomodoro, 52-17, Custom)',
+                '✓ Track unlimited skills and tasks',
+                '✓ Detailed statistics and progress tracking',
+                '✓ Break reminders and notifications'
+            ];
+            
+            features.forEach((feature, i) => {
+                ctx.fillText(feature, 420, 360 + (i * 40));
+            });
+        }
+
+        // Draw Screenshot 1 (1280x800) - Main Interface
+        function drawScreenshot1() {
+            const canvas = document.getElementById('screenshot1');
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#f5f5f5';
+            ctx.fillRect(0, 0, 1280, 800);
+            
+            // Browser chrome
+            ctx.fillStyle = '#e0e0e0';
+            ctx.fillRect(0, 0, 1280, 60);
+            
+            // Extension popup mockup
+            const popupX = 340;
+            const popupY = 100;
+            const popupW = 600;
+            const popupH = 650;
+            
+            // Popup shadow
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(popupX + 5, popupY + 5, popupW, popupH);
+            
+            // Popup background
+            ctx.fillStyle = colors.white;
+            ctx.fillRect(popupX, popupY, popupW, popupH);
+            
+            // Header
+            const gradient = ctx.createLinearGradient(popupX, popupY, popupX, popupY + 80);
+            gradient.addColorStop(0, colors.primary);
+            gradient.addColorStop(1, colors.secondary);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(popupX, popupY, popupW, 80);
+            
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 32px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('⏱️ Skill Time Tracker', popupX + 20, popupY + 50);
+            
+            // Task section
+            ctx.fillStyle = colors.dark;
+            ctx.font = 'bold 20px Arial';
+            ctx.fillText('Create New Task', popupX + 20, popupY + 120);
+            
+            // Input field mockup
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(popupX + 20, popupY + 140, popupW - 40, 45);
+            ctx.fillStyle = '#999';
+            ctx.font = '16px Arial';
+            ctx.fillText('Task name (e.g., Learn JavaScript)', popupX + 30, popupY + 168);
+            
+            // Dropdown mockup
+            ctx.strokeRect(popupX + 20, popupY + 200, popupW - 40, 45);
+            ctx.fillText('Pomodoro (25min work, 5min break)', popupX + 30, popupY + 228);
+            
+            // Add button
+            ctx.fillStyle = colors.primary;
+            ctx.fillRect(popupX + 20, popupY + 260, popupW - 40, 45);
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Add Task', popupX + popupW/2, popupY + 288);
+            
+            // Task list section
+            ctx.fillStyle = colors.dark;
+            ctx.font = 'bold 20px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('Your Tasks', popupX + 20, popupY + 340);
+            
+            // Sample tasks
+            const tasks = [
+                { name: 'Learn JavaScript', technique: 'Pomodoro', time: '2h 30m' },
+                { name: 'Practice Piano', technique: '52-17', time: '1h 45m' },
+                { name: 'Read "Clean Code"', technique: 'Custom', time: '45m' }
+            ];
+            
+            tasks.forEach((task, i) => {
+                const taskY = popupY + 370 + (i * 85);
+                
+                // Task card
+                ctx.fillStyle = '#f8f9fa';
+                ctx.fillRect(popupX + 20, taskY, popupW - 40, 75);
+                
+                // Task name
+                ctx.fillStyle = colors.dark;
+                ctx.font = 'bold 18px Arial';
+                ctx.fillText(task.name, popupX + 30, taskY + 25);
+                
+                // Technique badge
+                ctx.fillStyle = colors.primary;
+                ctx.fillRect(popupX + 30, taskY + 35, 100, 25);
+                ctx.fillStyle = colors.white;
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(task.technique, popupX + 80, taskY + 52);
+                
+                // Time spent
+                ctx.fillStyle = '#666';
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText(task.time + ' spent', popupX + 145, taskY + 52);
+                
+                // Start button
+                ctx.fillStyle = colors.secondary;
+                ctx.fillRect(popupX + popupW - 180, taskY + 15, 70, 35);
+                ctx.fillStyle = colors.white;
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Start', popupX + popupW - 145, taskY + 38);
+                
+                // Delete button
+                ctx.fillStyle = '#ea4335';
+                ctx.fillRect(popupX + popupW - 100, taskY + 15, 70, 35);
+                ctx.fillText('Delete', popupX + popupW - 65, taskY + 38);
+            });
+            
+            ctx.textAlign = 'left';
+        }
+
+        // Draw Screenshot 2 (1280x800) - Timer Active
+        function drawScreenshot2() {
+            const canvas = document.getElementById('screenshot2');
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#f5f5f5';
+            ctx.fillRect(0, 0, 1280, 800);
+            
+            // Browser chrome
+            ctx.fillStyle = '#e0e0e0';
+            ctx.fillRect(0, 0, 1280, 60);
+            
+            // Extension popup mockup
+            const popupX = 340;
+            const popupY = 100;
+            const popupW = 600;
+            const popupH = 650;
+            
+            // Popup shadow
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(popupX + 5, popupY + 5, popupW, popupH);
+            
+            // Popup background
+            ctx.fillStyle = colors.white;
+            ctx.fillRect(popupX, popupY, popupW, popupH);
+            
+            // Header
+            const gradient = ctx.createLinearGradient(popupX, popupY, popupX, popupY + 80);
+            gradient.addColorStop(0, colors.primary);
+            gradient.addColorStop(1, colors.secondary);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(popupX, popupY, popupW, 80);
+            
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 32px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('⏱️ Skill Time Tracker', popupX + 20, popupY + 50);
+            
+            // Active timer section
+            ctx.fillStyle = '#e8f5e9';
+            ctx.fillRect(popupX + 20, popupY + 100, popupW - 40, 350);
+            
+            ctx.fillStyle = colors.dark;
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Active Timer', popupX + popupW/2, popupY + 135);
+            
+            // Task name
+            ctx.font = '20px Arial';
+            ctx.fillText('Learn JavaScript', popupX + popupW/2, popupY + 170);
+            
+            // Technique badge
+            ctx.fillStyle = colors.primary;
+            ctx.fillRect(popupX + popupW/2 - 50, popupY + 185, 100, 30);
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('Pomodoro', popupX + popupW/2, popupY + 206);
+            
+            // Large timer display
+            ctx.fillStyle = colors.secondary;
+            ctx.font = 'bold 96px monospace';
+            ctx.fillText('24:37', popupX + popupW/2, popupY + 310);
+            
+            // Status
+            ctx.fillStyle = colors.dark;
+            ctx.font = 'bold 24px Arial';
+            ctx.fillText('🔥 Working', popupX + popupW/2, popupY + 360);
+            
+            // Progress bar
+            ctx.fillStyle = '#ddd';
+            ctx.fillRect(popupX + 60, popupY + 380, popupW - 120, 20);
+            ctx.fillStyle = colors.secondary;
+            ctx.fillRect(popupX + 60, popupY + 380, (popupW - 120) * 0.6, 20);
+            
+            // Control buttons
+            const buttonY = popupY + 420;
+            
+            // Pause button
+            ctx.fillStyle = colors.accent;
+            ctx.fillRect(popupX + popupW/2 - 160, buttonY, 140, 45);
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 18px Arial';
+            ctx.fillText('Pause', popupX + popupW/2 - 90, buttonY + 28);
+            
+            // Stop button
+            ctx.fillStyle = '#ea4335';
+            ctx.fillRect(popupX + popupW/2 + 20, buttonY, 140, 45);
+            ctx.fillText('Stop', popupX + popupW/2 + 90, buttonY + 28);
+            
+            // Tasks list preview
+            ctx.fillStyle = colors.dark;
+            ctx.font = 'bold 20px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('Your Tasks', popupX + 20, popupY + 500);
+            
+            // One sample task
+            ctx.fillStyle = '#f8f9fa';
+            ctx.fillRect(popupX + 20, popupY + 520, popupW - 40, 75);
+            
+            ctx.fillStyle = colors.dark;
+            ctx.font = 'bold 18px Arial';
+            ctx.fillText('Practice Piano', popupX + 30, popupY + 545);
+            
+            ctx.fillStyle = colors.primary;
+            ctx.fillRect(popupX + 30, popupY + 555, 80, 25);
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('52-17', popupX + 70, popupY + 572);
+            
+            ctx.textAlign = 'left';
+        }
+
+        // Initialize all canvases
+        function initializeAll() {
+            drawSmallTile();
+            drawLargeTile();
+            drawMarquee();
+            drawScreenshot1();
+            drawScreenshot2();
+        }
+
+        // Download canvas as PNG
+        function downloadCanvas(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            // Show success message
+            const successMsg = document.getElementById(canvasId + '-success');
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 2000);
+        }
+
+        // Run on load
+        window.onload = initializeAll;
+    </script>
+</body>
+</html>
